@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+## 运行流程
+package.json的dev脚本到_app.js到index.js
+## 路由
+当一个组件文件被添加到项目的pages目录，它自动会具有一个路由
+- 嵌套路由
+- 动态路由
+- Catch-all(守卫)路由
+- 在UI元素之间实现导航
+- 通过编程方式实现页面之间的导航
 ## Getting Started
 
 First, run the development server:
