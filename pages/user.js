@@ -14,7 +14,7 @@ export default function User(props) {
     </div>
   );
 }
-// If you export a function called getStaticProps (Static Site Generation) from a page, Next.js will pre-render this page at build time using the props returned by getStaticProps
+// If you export a function called getStaticProps (Static Site Generation静态生成) from a page, Next.js will pre-render this page at build time using the props returned by getStaticProps
 export async function getStaticProps() {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const users = await res.json();
