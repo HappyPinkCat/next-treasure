@@ -25,7 +25,8 @@ export async function getStaticProps(context) {
 }
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { postId: "1" } }], // 必须有path,params这个关键字.给的值是string类型
+    //  postId:的值与前面拼凑，构成了可以访问的那个页面，没有值那对应的链接的页面404了哦
+    paths: [{ params: { postId: "2" } }], // 必须有path,params这个关键字.给的值是string类型
     fallback: false,
   };
 }
