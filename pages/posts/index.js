@@ -7,7 +7,9 @@ export default function Posts({ posts }) {
         {posts.map((post) => (
           <>
             <Link href={`posts/${post.id}`}>
-              <li key={post.id}>{post.title}</li>
+              <li key={post.id}>
+                post {post.id}：{post.title}
+              </li>
             </Link>
           </>
         ))}
@@ -20,7 +22,7 @@ export async function getStaticProps() {
   const posts = await res.json();
   return {
     props: {
-      posts: posts.slice(0, 10),
+      posts: posts.slice(0, 3),
     },
   };
 }
