@@ -13,6 +13,7 @@ export async function getStaticProps(context) {
 
   // 取postId是因为报错ssg了（它需要给定路径参数）：getStaticPaths is required for dynamic SSG pages and is missing for '/posts/[postId]'.
   // Read more: https://nextjs.org/docs/messages/invalid-getstaticpaths-value
+  // npm run build便能在终端控制台看到页面的结构了，哪些页面是SSG的，哪些是Stastic的
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${params.postId}`
   );
