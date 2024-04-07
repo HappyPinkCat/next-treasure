@@ -40,7 +40,34 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# 静态生成
+# 两种预渲染形式
+1. 静态生成(Static Generation) 
+2. 服务器端渲染(Server-Side Rendering)
+## 服务器端渲染～介绍
+* 是一种预渲染形式，SSR并不是在构建时预渲染页面的，而是在请求时渲染页面
+* 对于每一个请求，HTML都会被即时生成
+* 如果我们需要做到对于每个请求都能获取最新的数据，或者当我们需要根据用户信息来获取数据，并且我们需要SEO，那么我们就要使用SSR
+## 静态生成
+* HTML是在构建时静态生成的。构建出来的页面会被缓存，后续请求会重用缓存的页面
+* 对于使用`getstaticPaths`，并且`fallback = true` 的动态页面，它并不是在构建时生成的，而是在首次请求时触发生成的
+* 对于增量静态再生成ISR，页面会在revalidation间隔过了以后，由下一个请求触发再生成
+* 对于静态生成，在大多数情况下，页面是在构建时通过使用`getStaticProps`生成的
+### 静态生成问题1 ~无法在请求时获取最新数据
+* 如果无法再请求时获取最新数据，就会碰到老的过期数据问题
+* 假设我们要开发一个新闻网站
+* 它的內容是经常变化的，比方说每秒钟新的文章就可能被发布（比如头条）
+* `getStaticProps`会在构建build时获取新间数据，不满足需求
+* `getstaticPaths`会在首次请求时获取数据，后续请求时用缓存数据，不满足需求
+* 增量静态再生成ISR可以解决部分问题，如果将revaliate设置为1秒，那么当再生成在后台进行期间，用户并不总是能看到最新的新间
+* 在客户端组件中，通过动态调用API来获取数据(ajax)，无法简单实现SEO
+### 静态生成问题2 ～无法访问客户端请求request
+* 当要获取的数据和某个特定用户相关时，这会成为一个问题
+* 假设我们要构建一个类似推特的网站
+* 作为用户，他希望看到的推文是基于他的喜好做了个性化推荐的
+* 推文也应该是SE0友好的，因为它是公开内容，全世界任何人可以看到
+* 为了获取特定于某个用户的推文，我们需要userId。只有在能够访问客户端请求request时，我们才能获取到userId 、
+* 可以使用客户端useEffect等技术来实现，但是这样做同样会失去SEO
+## 静态生成
 * 静态生成是一种预渲染技术，它在构建时生成HTML。
 * 预渲染出来的静态页面可以缓存在CDN上，可以被追布全球的用户快速访问到。
 * 静态内容不仅快，而且还有助于SEO，因为可以被搜索引擎快速索引。
