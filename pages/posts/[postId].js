@@ -36,6 +36,7 @@ export async function getStaticProps(context) {
     },
   };
 }
+//getStaticPaths用于告诉有哪些可能的id，即路径参数
 export async function getStaticPaths() {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const posts = await res.json();
