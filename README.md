@@ -40,9 +40,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# 客户端数据获取
+* 适用场景：私有页面(不需要预渲染与seo)/component组件(`getStaticProps`和`getServerSideProps`只能用于页面中)
+* 你并非总是需要预渲染数据
+* 例子：用户看板(dashboard)页面它并不是公开的，通常躲在一个登录页之后
+* 通常并不需要SEO，没有必要预渲染数据，你可以依赖于客户端数据获取
+# 客户端数据获取-特点
+* 会根据数据初始状态预渲染，如loading是true，chrome后台的network的preview只能预渲染“loading”
+  
 # 两种预渲染形式
-1. 静态生成(Static Generation) 
-2. 服务器端渲染(Server-Side Rendering)
+1. 静态生成(Static Generation)—— `getStaticProps`结合`getstaticPaths`
+2. 服务器端渲染(Server-Side Rendering)——`getServerSideProps`
 ## 服务器端渲染～介绍
 * 是一种预渲染形式，SSR并不是在构建时预渲染页面的(yarn build后目录里没有.html文件)，而是在请求时渲染页面(数据变更，页面一刷就更新了)
 * 对于每一个请求，HTML都会被即时生成
