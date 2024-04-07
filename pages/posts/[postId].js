@@ -25,14 +25,20 @@ export async function getStaticProps(context) {
   };
 }
 export async function getStaticPaths() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await res.json();
+  const paths = posts.map((post) => ({
+    params: { postId: `${post.id}` },
+  }));
   return {
     //  postId:的值与前面拼凑，构成了可以访问的那个页面，没有值那对应的链接的页面404了哦
-    paths: [
-      //这几条分别对应index.js页面的那几个Link的href;http://localhost:3000/posts点击对应的post item就能访问到这儿
-      { params: { postId: "1" } },
-      { params: { postId: "2" } },
-      { params: { postId: "3" } },
-    ], // 必须有path,params这个关键字.给的值是string类型
+    //硬编码 paths: [
+    //   //这几条分别对应index.js页面的那几个Link的href;http://localhost:3000/posts点击对应的post item就能访问到这儿
+    //   { params: { postId: "1" } },
+    //   { params: { postId: "2" } },
+    //   { params: { postId: "3" } },
+    // ], // 必须有path,params这个关键字.给的值是string类型
+    paths: paths,
     fallback: false,
   };
 }

@@ -22,7 +22,7 @@ export async function getStaticProps() {
   const posts = await res.json();
   return {
     props: {
-      posts: posts.slice(0, 3),
+      posts: posts,
     },
   };
 }
