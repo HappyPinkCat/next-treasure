@@ -44,7 +44,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 1. 静态生成(Static Generation) 
 2. 服务器端渲染(Server-Side Rendering)
 ## 服务器端渲染～介绍
-* 是一种预渲染形式，SSR并不是在构建时预渲染页面的，而是在请求时渲染页面
+* 是一种预渲染形式，SSR并不是在构建时预渲染页面的(yarn build后目录里没有.html文件)，而是在请求时渲染页面(数据变更，页面一刷就更新了)
 * 对于每一个请求，HTML都会被即时生成
 * 如果我们需要做到对于每个请求都能获取最新的数据，或者当我们需要根据用户信息来获取数据，并且我们需要SEO，那么我们就要使用SSR
 ## 静态生成
