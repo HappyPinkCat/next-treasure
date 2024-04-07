@@ -16,11 +16,15 @@ export default function ArticleListByCategory({ articles, category }) {
   );
 }
 export async function getServerSideProps(context) {
-  const { params } = context;
-  const res = await fetch(
+  // sk-doc:https://nextjs.org/docs/pages/api-reference/functions/get-server-side-props#context-parameter
+  const { params, req, res, query } = context;
+  //   console.log(req.headers.cookie);
+  console.log(query); //路径上挂了哪些参数
+  //   res.setHeader("Set-Cookie", ["name=Catty"]);
+  const response = await fetch(
     `http://localhost:4000/news?category=${params.category}` //json-server支持参数查找的
   );
-  const data = await res.json();
+  const data = await response.json();
   return {
     props: {
       articles: data,
