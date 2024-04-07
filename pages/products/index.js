@@ -18,11 +18,13 @@ export default function ProductsList({ products }) {
   );
 }
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:4000/products");
-  const data = await res.json();
-  return {
-    props: {
-      products: data,
-    },
-  };
+console.log("Generating/regenerating products list");
+const res = await fetch("http://localhost:4000/products");
+const data = await res.json();
+return {
+  props: {
+    products: data,
+  },
+  revalidate: 20, //20秒后重新生成页面,终端可监控到console值的变化，高流量的电商1s，文档站点60s
+};
 }

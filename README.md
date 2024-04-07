@@ -73,3 +73,11 @@ https://github.com/typicode/json-server
 **增量静态生成ISR**
 有了ISR/Incremental Static Regeneration之后，即便在你构建了应用之后，Next.js仍然可以帮你更新静态页面。
 它可以静态生成单个页面，无需重新构建整个应用，这样可以有效解决成旧数据问题。
+**如何实现**
+* 在getStaticProps函数中，除了`props`键，我们可以指定一个`revalidate`键,其值表示多少秒以后开始重新生成页面。
+## 再生成
+* 只有在过了revalidate时间之后，并且用户发起请求的时候，再生成(re-generation)才会被触发
+* 如果一个用户访问了产品页，但是之后，一整天没有用户再访问那个页面，那么再生成就不会发生。
+* revalidate井不是说页面在每隔10秒时会自动再生成
+* 它只是表明，在revalidate时间之后，如果有用户做了一次请求，那么后台必须发起一次再生成。
+* 再生成可能会失败，那么再下个再生成成功之前，next.js会继续使用之前缓存的html页面。
