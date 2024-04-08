@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "json-server": "json-server --watch db.json --port 4000"
+    "json-server": "json-server --watch db.json --port 4000 -d 1500"
   },
   "dependencies": {
     "json-server": "^1.0.0-alpha.23",
