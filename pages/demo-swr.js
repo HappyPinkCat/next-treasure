@@ -4,6 +4,7 @@ const fetcher = async (url) => {
   const data = await response.json();
   return data;
 };
+export default Demo2;
 function Demo1() {
   const { data, error, isLoading } = useSWR("/dashboard", fetcher); //key值，可传给fetcher
   /*
@@ -71,4 +72,3 @@ function Demo2() {
     </div>
   );
 }
-export default Demo2;
