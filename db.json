@@ -5,6 +5,13 @@
     "followers": 5000,
     "following": 50
   },
+  "queryInfo": {
+    "queryId": 2
+  },
+  "secondQueryInfo": [
+    { "uid": 1, "info": "第二次query拿到的结果--uid 1" },
+    { "uid": 2, "info": "第二次query拿到的结果--uid 2" }
+  ],
   "news": [
     {
       "id": "1",

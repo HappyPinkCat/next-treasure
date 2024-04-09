@@ -4,7 +4,8 @@ const fetcher = async (url) => {
   const data = await response.json();
   return data;
 };
-export default Demo2;
+export default Demo3;
+
 function Demo1() {
   const { data, error, isLoading } = useSWR("/dashboard", fetcher); //key值，可传给fetcher
   /*
@@ -71,4 +72,15 @@ function Demo2() {
       <Email />
     </div>
   );
+}
+// 按需请求:使用 null 或传一个函数作为 key 来有条件地请求数据。如果函数抛出错误或返回 falsy 值，SWR 将不会启动请求
+function Demo3() {
+  const shouldFetch = false;
+  const { data: dashboard } = useSWR(
+    shouldFetch ? "/dashboard" : null,
+    fetcher
+  );
+  if (dashboard) {
+    return <h3>dashboard'post number is {dashboard.posts}.</h3>;
+  }
 }
