@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 export default Demo2;
 function Demo1() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:4000/dashboard");
-      const data = await response.json();
-      setDashboardData(data);
-      setIsLoading(false);
+      try {
+        const response = await fetch("http://localhost:4000/dashboard");
+        const data = await response.json();
+        setDashboardData(data);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchData();
   }, []);
