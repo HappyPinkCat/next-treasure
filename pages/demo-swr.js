@@ -1,10 +1,10 @@
-import useSWR from "swr";
+import useSWR, { SWRConfig, useSWRConfig } from "swr";
 const fetcher = async (url) => {
   const response = await fetch(`http://localhost:4000${url}`);
   const data = await response.json();
   return data;
 };
-export default Demo3;
+export default Demo4;
 
 function Demo1() {
   const { data, error, isLoading } = useSWR("/dashboard", fetcher); //key值，可传给fetcher
@@ -82,5 +82,44 @@ function Demo3() {
   );
   if (dashboard) {
     return <h3>dashboard'post number is {dashboard.posts}.</h3>;
+  }
+}
+// 缓存 provider 应该放在组件树的更高位置，或者放在渲染之外。<Demo4/> 组件重新挂载时，provider 也会被重新创建。
+// interface Cache<Data> {  //缓存 provider 是类似 Map 的对象，它有 get、set、delete 和 keys 方法
+//   get(key: string): Data | undefined
+//   set(key: string, value: Data): void
+//   delete(key: string): void
+//   keys(): IterableIterator<string>
+// }
+function Demo4() {
+  return (
+    <SWRConfig
+      value={{
+        provider: () => new Map(), //创建
+      }}
+    >
+      <Demo4Page1 />
+      <hr />
+      <Demo4Page2 />
+    </SWRConfig>
+  );
+  function Demo4Page1() {
+    const { cache } = useSWRConfig();
+    cache.set("12345", "上山打老虎"); //设置
+    return (
+      <>
+        <h1>This page is Demo4Page1</h1>
+      </>
+    );
+  }
+  function Demo4Page2() {
+    const { cache } = useSWRConfig();
+    const cacheRes = cache.get("12345"); //获取
+    return (
+      <>
+        <h1>This page is Demo4Page2</h1>
+        <h3>cacheRes:{cacheRes}</h3>
+      </>
+    );
   }
 }
