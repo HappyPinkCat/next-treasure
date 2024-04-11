@@ -1,10 +1,11 @@
-import useSWR, { SWRConfig, useSWRConfig } from "swr";
+import useSWR, { SWRConfig, useSWRConfig, preload } from "swr";
+import { useState } from "react";
 const fetcher = async (url) => {
   const response = await fetch(`http://localhost:4000${url}`);
   const data = await response.json();
   return data;
 };
-export default Demo4;
+export default Demo5;
 
 function Demo1() {
   const { data, error, isLoading } = useSWR("/dashboard", fetcher); //key值，可传给fetcher
@@ -121,5 +122,21 @@ function Demo4() {
         <h3>cacheRes:{cacheRes}</h3>
       </>
     );
+  }
+}
+// 预请求Preload the resource before rendering the InnerComponent component below,
+// this prevents potential waterfalls in your application.
+function Demo5() {
+  preload("/preloadData", fetcher); //preloading is also available to use in event handlers or effects
+  const [show, setShow] = useState(false);
+  return (
+    <div>
+      <button onClick={() => setShow(true)}>Show InnerComponent</button>
+      {show ? <InnerComponent /> : null}
+    </div>
+  );
+  function InnerComponent() {
+    const { data } = useSWR("/preloadData", fetcher);
+    return <h1>This is InnerComponent data:{data?.info}</h1>;
   }
 }

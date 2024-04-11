@@ -8,6 +8,10 @@
   "queryInfo": {
     "queryId": 2
   },
+  "preloadData": {
+    "uid": 1,
+    "info": "preloadData--uid 1"
+  },
   "secondQueryInfo": [
     { "uid": 1, "info": "第二次query拿到的结果--uid 1" },
     { "uid": 2, "info": "第二次query拿到的结果--uid 2" }
